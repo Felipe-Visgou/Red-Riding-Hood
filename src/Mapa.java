@@ -18,8 +18,8 @@ public class Mapa {
             	for(j = 0; j < 41; j++){
             		matrixMapa[i][j] = inputStream.read();
             	}
-            	inputStream.read();
-            	inputStream.read();
+            	inputStream.read(); // Ignora CR
+            	inputStream.read(); // Ignora \n
             }
         } finally {
             if (inputStream != null) {
