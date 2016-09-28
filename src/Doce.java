@@ -8,4 +8,17 @@ public class Doce {
 		fator = f;
 		qtd = 5;
 	}
+	public void decCandy(int i)
+	{
+		if(i == 0){
+			System.out.println("Nao ha mais doces desse tipo");
+			return;
+		}
+		else{
+			while(i > 0){
+			qtd--;
+			i--;
+			}
+		}
+	}
 }

@@ -10,6 +10,8 @@ public class Main {
 		m.printGlade();
 		m.printCandy();
 		m.printInstance();
+		
+		System.out.println(m.gladeTime(4, 0, 0, 0, 0, 5, Mapa.Doces, Mapa.Clareiras));
 
 	}
 
