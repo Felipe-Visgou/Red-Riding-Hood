@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Mapa {
 	
 	/* Variáveis do Objeto */
-   static int[][]matrixMapa;
+   static int[][] matrixMapa;
    static ArrayList<Clareira> Clareiras; // Lista de Clareiras
    static ArrayList<Doce> Doces; // Lista de Doces
    
@@ -26,29 +26,10 @@ public class Mapa {
     
     /* Métodos */
     
-    public float gladeTime(int arg0, int arg1,int arg2,int arg3,int arg4,int arg5, ArrayList<Doce> doces, ArrayList<Clareira> glades){
+    public float[] gladeCandy(){
 		
-    	/* Função Hard*/
-    	/* TEMPO = Dificuldade da Clareira/SUM(fator de apreciação dos doces fornecidos)*/
-   
-    	
-    	/*
-    	 * arg0 = numero da clareira (0,2,...,9)
-    	 * arg0-5 = quantidade de cada doce oferecida (0,1,...,5)
-    	 *  ArrayList<Doce> doces = Lista de Doces a ser manipulada
-    	 */
-    	
-    	float factSum = 0, Tempo;
-    	factSum += arg1*(doces.get(0).fator);
-    	factSum += arg2*(doces.get(1).fator);
-    	factSum += arg3*(doces.get(2).fator);
-    	factSum += arg4*(doces.get(3).fator);
-    	factSum += arg5*(doces.get(4).fator);
-    	
-    	Tempo = glades.get(arg0).Dificuldade/factSum;
-    	
-    	return Tempo;
-   
+  
+    	return null;	
     }
     
     /* Lê de um arquivo as dificuldades das clareiras */

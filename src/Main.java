@@ -11,7 +11,7 @@ public class Main {
 		m.printCandy();
 		m.printInstance();
 		
-		System.out.println(m.gladeTime(4, 0, 0, 0, 0, 5, Mapa.Doces, Mapa.Clareiras));
+		System.out.println(m.gladeTime(0, 0, 1, 0, 0, 0));
 
 	}
 
