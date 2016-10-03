@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -9,9 +12,9 @@ public class Mapa {
 	
 	/* Variáveis do Objeto */
    static int[][] matrixMapa;
-   static ArrayList<Clareira> Clareiras; // Lista de Clareiras
-   static ArrayList<Doce> Doces; // Lista de Doces
-   
+   private static ArrayList<Clareira> Clareiras; // Lista de Clareiras
+   private static ArrayList<Doce> Doces; // Lista de Doces 
+   private static Cesta Bascket;
    /* Construtor */
    
     public Mapa() throws IOException {
@@ -22,14 +25,52 @@ public class Mapa {
         loadGlade();
         loadCandy();
         loadInstance();
+        Bascket = new Cesta();
     }
     
     /* Métodos */
     
-    public float[] gladeCandy(){
+    /* Retorna o tempo total gasto nas clareiras */
+    public float gladeCandy(){
 		
-  
-    	return null;	
+    	int qtdGlades = Mapa.Clareiras.size();
+    	int qtdCandies = Mapa.Doces.size();
+    	int candyCount = 5*qtdCandies - 1;
+    	int unvisitedGlades;
+    	int i=0;
+    	float factor;	
+
+    	
+    	while(candyCount > 0){
+    		
+    		Collections.sort(Mapa.Clareiras, new Comparator<Clareira>(){
+    			public int compare(Clareira c1, Clareira c2){
+    				if(c1.fator > c2.fator) return -1;
+    				if(c1.fator < c2.fator) return 1;
+    				return 0;
+    			}
+    		});
+    		
+    		/* Caso 1: O numero de clareiras nao visitadas e igual ao numero de doces que tenho*/
+    		if(Clareira.unvisitedGlades().size() == candyCount){
+    			for(Clareira c : Clareira.unvisitedGlades()){
+    				factor = Bascket.giveCandy(c);
+    				c.updateFactor(factor);
+    				candyCount--;
+    			}
+    			return sumTime();
+    		}
+    		/* * * * * * * PAREI AQUI *  * * * * */
+    		/* Caso 2: Eu tenho mais doces que clareiras nao visitadas*/
+    		i = 0;
+    		factor = Bascket.giveCandy(Mapa.Clareiras.get(i));
+    		while(factor < 0){
+    			factor = Bascket.giveCandy(Mapa.Clareiras.get(++i));
+    		}
+			Mapa.Clareiras.get(i).updateFactor(factor);
+			candyCount--;
+    	}
+    	return sumTime();	
     }
     
     /* Lê de um arquivo as dificuldades das clareiras */
@@ -40,7 +81,7 @@ public class Mapa {
          	// Adiciona as clareiras com as dificuldades do arquivo de clareiras
          	while(s.hasNextInt())
          	{
-         		Clareira c = new Clareira(s.nextInt());
+         		Clareira c = new Clareira((float)s.nextInt());
          		Clareiras.add(c);
          	}
          } finally {
@@ -48,7 +89,7 @@ public class Mapa {
          }
     }
    
-   /* Lê de um arquivo o fator de apreciação dos 10 doces */
+   /* Lê de um arquivo o fator de apreciação dos 5 doces */
     private static void loadCandy()throws IOException{
     	Scanner s = null;
     	try {
@@ -120,5 +161,29 @@ public class Mapa {
 			System.out.printf("\n");
 		}
 
+	}
+	
+	/* Métodos de get variáveis da Classe Mapa */
+	public static ArrayList<Clareira> getGlades(){
+		return Mapa.Clareiras;
+	}
+	public static ArrayList<Doce> getCandies(){
+		return Mapa.Doces;
+	}
+	public static Cesta getBascket(){
+		return Bascket;
+	}
+	public static int[][] getMatrix(){
+		return matrixMapa;
+	}
+	/* Retorna o somatório dos tempos gastos em cada clareira*/
+	public float sumTime(){
+		
+		float sum = 0;
+		for(Clareira c : Mapa.Clareiras){
+			System.out.println(c.fator);
+			sum+=c.fator;
+		}
+		return sum;
 	}
 }
