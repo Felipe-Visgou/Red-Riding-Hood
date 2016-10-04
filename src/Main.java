@@ -1,6 +1,5 @@
+import java.awt.EventQueue;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import javax.swing.JFrame;
 
@@ -14,7 +13,6 @@ public class Main extends JFrame {
     private void initUI() {
         
     	Instancia I = new Instancia();
-    	I.updatePosition(6*20, 3*20, "left");
         add(I);
         
         setSize(830, 880);
@@ -29,8 +27,15 @@ public class Main extends JFrame {
 		// TODO Auto-generated method stub
 		
 		Mapa m = new Mapa();
-		Main ex = new Main();
-		ex.setVisible(true);
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                
+        		Main ex = new Main();
+        		ex.setVisible(true);
+            }
+        });
 		m.printGlade();
 		m.printCandy();
 		m.printInstance();
@@ -41,5 +46,6 @@ public class Main extends JFrame {
 
 
 	}
+
 
 }

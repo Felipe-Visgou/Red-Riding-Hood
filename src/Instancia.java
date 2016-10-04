@@ -3,14 +3,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.Timer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Instancia extends JPanel{
+public class Instancia extends JPanel implements ActionListener  {
 	
-	private  int x,y;
-	private  String position;
+	private  Chapeuzinho hood;
+	private ArrayList<Integer> p;
+	private Timer timer;
+    private final int DELAY = 1000;
     public Instancia() {
 
         initBoard();
@@ -19,7 +25,18 @@ public class Instancia extends JPanel{
     private void initBoard() {
         
         setFocusable(true);
-        setBackground(Color.BLACK);        
+        setBackground(Color.BLACK);
+        p = new ArrayList<Integer>();
+        p.add(800);
+        p.add(801);
+        p.add(842);
+        p.add(843);
+        p.add(884);
+        p.add(885);
+        hood = new Chapeuzinho(p);
+        
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
 
 
@@ -87,7 +104,7 @@ public class Instancia extends JPanel{
         		}
         	}
         }
-        switch(position){
+        switch(hood.getPos()){
         case "front":
             img6 = new ImageIcon("front.png");
             chapeu = img6.getImage();
@@ -106,11 +123,14 @@ public class Instancia extends JPanel{
             break;
         default: System.out.println("Posicao errada");
         }
-        g2d.drawImage(chapeu, x, y,20,20,this);
+        g2d.drawImage(chapeu, hood.getX()*20, hood.getY()*20,20,20,this);
 	}
-	public void updatePosition(int x1,int y1,String s){
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		hood.updatePosition();
+		repaint();
 		
-		x = x1; y = y1;
-		position = s;
 	}
 }
