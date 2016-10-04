@@ -59,28 +59,28 @@ public class Instancia extends JPanel{
         		0,0,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,1,
         		1,1,0,0,0,1,1,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1,
         		1,1,1,0,1,0};
-        int[][] map = Mapa.getMatrix();
+        int[] map = Mapa.getMatrix();
         
         
         for(int i = 0; i < 41; i++){
         	for(int j = 0; j < 41;j++){
-        		if(map[j][i] == 'D'){
-            		g2d.drawImage(tree, i*20, j*20,20,20,this);
+        		if(map[j*41 + i] == 'D'){
+            		g2d.drawImage(tree, i*20, j*20,23,23,this);
         		}
         		else{
-        			if(map[j][i] == 'C'){
+        			if(map[j*41 + i] == 'C'){
             			g2d.drawImage(glade, i*20+4, j*20+7,13,13,this);
         			}
         			else{
-        				if(map[j][i] == 'G'){
+        				if(map[j*41 + i] == 'G'){
         					if(hash[it] == 0)
         						g2d.drawImage(galho1, i*20, j*20,20,20,this);
         					else
-        						g2d.drawImage(galho2, i*20, j*20,20,20,this);
+        						g2d.drawImage(galho2, i*20, j*20,18,18,this);
         					it++;
         					}
         				else{
-        					if(map[j][i] == 'F')
+        					if(map[j*41 + i] == 'F')
         						g2d.drawImage(house, i*20-9, j*20,35,35,this);
         				}
         			}

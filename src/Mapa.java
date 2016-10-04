@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Mapa {
 	
 	/* Variáveis do Objeto */
-   static int[][] matrixMapa;
+   static int[] matrixMapa;
    private static ArrayList<Clareira> Clareiras; // Lista de Clareiras
    private static ArrayList<Doce> Doces; // Lista de Doces 
    private static Cesta Bascket;
@@ -19,7 +19,7 @@ public class Mapa {
    
     public Mapa() throws IOException {
 
-        matrixMapa = new int[41][41];
+        matrixMapa = new int[1681];
         Clareiras = new ArrayList<Clareira>();
         Doces = new ArrayList<Doce>();
         loadGlade();
@@ -70,6 +70,7 @@ public class Mapa {
 			Mapa.Clareiras.get(i).updateFactor(factor);
 			candyCount--;
     	}
+    	orderGlades();
     	return sumTime();	
     }
     
@@ -113,7 +114,7 @@ public class Mapa {
             inputStream = new FileReader("instance.txt");
             for(i = 0; i < 41; i++){
             	for(j = 0; j < 41; j++){
-            		matrixMapa[i][j] = inputStream.read();
+            		matrixMapa[i*41 + j] = inputStream.read();
             	}
             	inputStream.read(); // Ignora CR
             	inputStream.read(); // Ignora \n
@@ -156,7 +157,7 @@ public class Mapa {
 		int i,j;
 		for(i = 0; i < 41; i++){
 			for(j=0; j < 41; j++){
-				System.out.printf("%c ", matrixMapa[i][j]);
+				System.out.printf("%c ", matrixMapa[i*41 + j]);
 			}
 			System.out.printf("\n");
 		}
@@ -173,7 +174,7 @@ public class Mapa {
 	public static Cesta getBascket(){
 		return Bascket;
 	}
-	public static int[][] getMatrix(){
+	public static int[] getMatrix(){
 		return matrixMapa;
 	}
 	/* Retorna o somatório dos tempos gastos em cada clareira*/
@@ -185,5 +186,14 @@ public class Mapa {
 			sum+=c.fator;
 		}
 		return sum;
+	}
+	private void orderGlades(){
+		Collections.sort(Mapa.Clareiras, new Comparator<Clareira>(){
+			public int compare(Clareira c1, Clareira c2){
+				if(c1.fator > c2.fator) return -1;
+				if(c1.fator < c2.fator) return 1;
+				return 0;
+			}
+		});
 	}
 }

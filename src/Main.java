@@ -14,11 +14,11 @@ public class Main extends JFrame {
     private void initUI() {
         
     	Instancia I = new Instancia();
-    	I.updatePosition(6*20, 3*20, "right");
+    	I.updatePosition(6*20, 3*20, "left");
         add(I);
         
         setSize(830, 880);
-        setResizable(false);
+        setResizable(true);
         
         setTitle("Red Riding Hood");
         setLocationRelativeTo(null);
