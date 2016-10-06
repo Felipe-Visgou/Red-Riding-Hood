@@ -16,7 +16,7 @@ public class Instancia extends JPanel implements ActionListener  {
 	private  Chapeuzinho hood;
 	private ArrayList<Integer> p;
 	private Timer timer;
-    private final int DELAY = 1000;
+    private final int DELAY = 75;
     public Instancia() {
 
         initBoard();
@@ -25,14 +25,10 @@ public class Instancia extends JPanel implements ActionListener  {
     private void initBoard() {
         
         setFocusable(true);
-        setBackground(Color.BLACK);
-        p = new ArrayList<Integer>();
-        p.add(800);
-        p.add(801);
-        p.add(842);
-        p.add(843);
-        p.add(884);
-        p.add(885);
+        setBackground(Color.GREEN);
+
+        p = Algorithm.AStar(Mapa.getLMap(), Mapa.getStartNode(), Mapa.getEndNode(), 41*41);
+
         hood = new Chapeuzinho(p);
         
         timer = new Timer(DELAY, this);
@@ -124,11 +120,20 @@ public class Instancia extends JPanel implements ActionListener  {
         default: System.out.println("Posicao errada");
         }
         g2d.drawImage(chapeu, hood.getX()*20, hood.getY()*20,20,20,this);
+        
+        int count = hood.getCounter();
+        int dx,dy;
+        if(count > 1){
+        	for(int k = 1; k < count; k++){
+        		dx = (p.get(k-1)%41); dy = (int)(p.get(k-1)/41);
+        		g2d.setColor(Color.RED);
+        		g2d.drawOval(dx*20+4, (int)dy*20+4, 12, 12);
+        		g2d.fillOval(dx*20+4, dy*20+4, 12, 12);
+        	}
+        } 
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		hood.updatePosition();
 		repaint();
 		

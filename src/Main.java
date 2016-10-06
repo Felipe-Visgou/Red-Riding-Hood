@@ -28,6 +28,10 @@ public class Main extends JFrame {
 		
 		Mapa m = new Mapa();
 
+		m.printInstance();
+		m.printGlade();
+		m.printCandy();
+		
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -36,13 +40,7 @@ public class Main extends JFrame {
         		ex.setVisible(true);
             }
         });
-		m.printGlade();
-		m.printCandy();
-		m.printInstance();
 		
-		
-		float f = m.gladeCandy();
-		System.out.println("Acabou " + f);
 
 
 	}

@@ -5,6 +5,7 @@ public class Clareira {
 	public float fator;
 	public float facSum;
 	public boolean[] hasCandy;
+	public int position;
 	public Clareira(float dif){
 		Dificuldade = dif;
 		fator = this.Dificuldade;

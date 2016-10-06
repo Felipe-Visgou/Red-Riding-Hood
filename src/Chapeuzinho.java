@@ -15,13 +15,10 @@ public class Chapeuzinho {
 		
 		int dx,dy;
 		
-		if(counter == path.size()-1)
-			try {
-				Thread.sleep((long)1e+10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		if(counter == path.size()){
+			Fim();
+			System.exit(1);
+		}
 		
 		dx = path.get(counter)%41;
 		dy = (int)path.get(counter)/41;
@@ -51,5 +48,31 @@ public class Chapeuzinho {
 	}
 	public int getY(){
 		return y;
+	}
+	public int getCounter(){
+		return counter;
+	}
+	public ArrayList<Integer> getPath(){
+		return path;
+	}
+	
+	void Fim(){
+		float f = Mapa.gladeCandy(path);
+		int sum = 0;
+		for(Integer I : path){
+			sum += Mapa.getLMap().get(I.intValue()).getVal();
+		}
+		Mapa.printGlade();
+		System.out.println("\n\n\n");
+		System.out.println("Tempo das Clareiras achado : " + f);
+		System.out.println("Tempo do Percurso : " + sum);
+		System.out.println("Soma Total : " + (f + sum));
+		try {
+			Thread.sleep(100000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 }
